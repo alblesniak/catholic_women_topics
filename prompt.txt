@@ -1,0 +1,405 @@
+system_message = """
+You are tasked with categorizing posts from a Catholic forum into a three-level hierarchical structure using the predefined categories provided below.
+
+**Instructions:**
+
+1. **Use the Predefined Categories:**
+
+   Below is the list of predefined categories:
+
+   ## 1. Grzech i Sakrament Pokuty
+
+   ### 1.1. Wątpliwości dotyczące grzechu
+
+   #### 1.1.1. Istota grzechu
+
+   - Wątpliwości co do istoty grzechu
+   - Niepewność, czy dany czyn jest grzechem ciężkim czy lekkim
+   - Wątpliwości dotyczące oceny konkretnych czynów jako grzechów
+
+   #### 1.1.2. Grzechy konkretne
+
+   - Problemy z czystością (masturbacja, pornografia)
+   - Problemy z pornografią i masturbacją w związku
+   - Zmaganie się z nałogami (np. alkohol, narkotyki)
+   - Zmaganie się z nałogowym kłamstwem
+
+   ### 1.2. Poczucie winy i skrupulatność
+
+   - Poczucie winy z powodu grzechów z przeszłości
+   - Skrupulatność (nadmierne poczucie winy)
+   - Trudności w przebaczeniu sobie samemu
+   - Poczucie winy z powodu zaniedbań religijnych
+   - Poczucie winy z powodu własnych emocji i zachowań
+   - Zmaganie się z perfekcjonizmem
+
+   ### 1.3. Spowiedź i jej ważność
+
+   - Wątpliwości co do ważności sakramentu spowiedzi
+   - Wątpliwości dotyczące ważności spowiedzi bez formuły absolucji
+   - Wątpliwości co do konieczności ponownego wyznania grzechów
+   - Zatajanie grzechów w przeszłości
+   - Zapominanie grzechów podczas spowiedzi
+   - Obawa, że spowiednik nie zrozumiał lub nie usłyszał grzechu
+   - Trudności w wyznawaniu wstydliwych grzechów (np. grzechów seksualnych)
+   - Przygotowanie do spowiedzi generalnej
+   - Problemy z rachunkiem sumienia (np. niepamiętanie grzechów)
+
+   ### 1.4. Obawy związane z Komunią Świętą
+
+   - Obawa przed popełnieniem świętokradztwa (przyjęcie Komunii w stanie grzechu)
+   - Wątpliwości dotyczące przystępowania do Komunii bez świadomości grzechu ciężkiego
+   - Poczucie winy po przyjęciu Komunii w stanie grzechu
+   - Pragnienie uczestnictwa w Eucharystii mimo poczucia grzechu
+
+   ### 1.5. Lęk i obawy duchowe
+
+   - Lęk przed potępieniem i karą Bożą
+   - Lęk przed spowiedzią
+   - Strach przed samodzielnym wykonaniem pokuty
+   - Obawa przed podejściem do nieznajomego z powodu bezpieczeństwa
+
+   ## 2. Wiara i Doktryna Kościoła
+
+   ### 2.1. Wątpliwości doktrynalne
+
+   - Wątpliwości dotyczące wiary i nauczania Kościoła
+   - Wątpliwości dotyczące dogmatów Kościoła
+   - Wątpliwości dotyczące nauczania Kościoła o seksualności
+   - Wątpliwości dotyczące nauczania Kościoła o homoseksualizmie
+   - Wątpliwości dotyczące istnienia piekła i nieba
+   - Wątpliwości dotyczące eklezjologii (nauki o Kościele)
+   - Wątpliwości dotyczące predestynacji i wolnej woli
+   - Wątpliwości co do potrzeby posłuszeństwa wobec przełożonych
+   - Wątpliwości co do autentyczności cudów
+   - Wątpliwości dotyczące sensu sakramentów w życiu codziennym
+   - Wątpliwości co do sensu praktyk religijnych
+
+   ### 2.2. Pytania teologiczne
+
+   - Pytania o istnienie Boga i zło na świecie
+   - Pytania o życie po śmierci i zmartwychwstanie
+   - Pytania o grzech pierworodny i jego konsekwencje
+   - Pytania o wolną wolę i predestynację
+   - Pytania o rolę Maryi w Kościele
+   - Pytania o aniołów i demony
+   - Pytania o historię Kościoła i jego błędy
+   - Pytania o różnice między religiami chrześcijańskimi
+   - Pytania o różnice między Starym a Nowym Testamentem
+   - Pytania o relacje między wiarą a nauką
+   - Pytania o znaczenie i sens celibatu
+   - Pytania o symbolikę i znaczenie Eucharystii
+   - Pytania o znaczenie modlitwy w życiu codziennym
+   - Pytania o znaczenie świętych w życiu wierzącego
+   - Pytania o rolę tradycji w Kościele
+   - Pytania o eutanazję i aborcję
+   - Pytania o ekumenizm i dialog międzyreligijny
+
+   ### 2.3. Konflikty z nauczaniem Kościoła
+
+   - Trudności w akceptacji nauczania Kościoła o moralności
+   - Trudności w akceptacji nauki Kościoła o małżeństwie
+   - Trudności w akceptacji zmian w Kościele
+   - Problemy z autorytetem Kościoła i duchowieństwa
+   - Konflikt między radami psychologa a nauką Kościoła
+
+   ## 3. Relacja z Bogiem i życie duchowe
+
+   ### 3.1. Kryzys wiary i duchowe zwątpienie
+
+   - Kryzys wiary i zwątpienie
+   - Uczucie oddalenia od Boga
+   - Poczucie braku wspólnoty w Kościele
+   - Doświadczenie duchowej pustki
+   - Zmaganie się z gniewem na Boga
+   - Zmaganie się z pokusą odrzucenia wiary
+   - Poczucie niewystarczalności w oczach Boga
+
+   ### 3.2. Poszukiwanie i pogłębianie wiary
+
+   - Pragnienie pogłębienia relacji z Bogiem
+   - Poszukiwanie sposobu na powrót do praktyk religijnych
+   - Tęsknota za bliskością z Bogiem mimo zamknięcia serca
+   - Umocnienie wiary w trudnych momentach
+   - Doświadczenia mistyczne i ich interpretacja
+   - Doświadczenie nawrócenia i niepewność co do dalszych kroków
+
+   ### 3.3. Modlitwa i praktyki religijne
+
+   - Trudności w modlitwie
+   - Trudności z koncentracją podczas modlitwy
+   - Zmaganie się z pokusami podczas praktyk duchowych
+   - Trudności w zrozumieniu Pisma Świętego
+   - Trudności w zrozumieniu liturgii Kościoła
+   - Trudności w zrozumieniu przypowieści Jezusa
+   - Trudności w zrozumieniu Apokalipsy św. Jana
+   - Trudności w zrozumieniu teologii moralnej
+   - Trudności w zrozumieniu znaczenia liturgii godzin
+   - Zmaganie się z lenistwem duchowym
+   - Postrzeganie codziennych trudności jako walki duchowej
+   - Doświadczenie niepokoju podczas praktyk religijnych
+   - Problemy z koncentracją podczas modlitwy
+
+   ## 4. Relacje międzyludzkie i rodzina
+
+   ### 4.1. Małżeństwo i związki
+
+   - Konflikty małżeńskie
+   - Problemy w małżeństwie związane z antykoncepcją
+   - Kryzys zaufania przed ślubem z powodu nałogu partnera
+   - Wątpliwości dotyczące przyszłości związku i decyzji o ślubie
+   - Konflikty w małżeństwie spowodowane radykalnym nawróceniem jednego z małżonków
+   - Brak szacunku i agresja w małżeństwie
+   - Wybaczenie zdrady małżeńskiej i przyjęcie dziecka z innego związku
+   - Różnice w oczekiwaniach finansowych w małżeństwie
+   - Problemy w relacji z partnerem z powodu awersji do czułości
+   - Problemy w komunikacji z partnerem
+   - Zmaganie się z pokusą zdrady w małżeństwie
+   - Trudności w odcięciu się od toksycznej relacji
+
+   ### 4.2. Rodzina i wychowanie dzieci
+
+   - Trudności w relacjach z rodziną
+   - Problemy wychowawcze z dziećmi
+   - Poczucie winy z powodu niewłaściwego wychowania dzieci
+   - Problemy z przeszłością rodzinną (np. rozwód rodziców)
+   - Konflikty rodzinne z powodu nadopiekuńczości nad dzieckiem
+   - Problemy wychowawcze związane z wiarą dziecka
+   - Pytanie o możliwość przystąpienia dziecka do Komunii bez wiary
+   - Dyskusja o obowiązku posyłania dzieci na lekcje religii
+
+   ### 4.3. Relacje społeczne i przyjaźnie
+
+   - Trudności w relacjach przyjacielskich
+   - Trudności w relacji z toksycznym przyjacielem
+   - Wątpliwości dotyczące przebaczenia i zakończenia przyjaźni
+   - Problemy z zazdrością w związku
+   - Zmaganie się z lękiem przed odrzuceniem
+   - Poczucie odrzucenia przez społeczeństwo
+   - Konflikty z innymi wiernymi
+   - Poczucie niesprawiedliwości w relacjach międzyludzkich
+   - Trudności w podejmowaniu decyzji
+
+   ## 5. Emocje i zdrowie psychiczne
+
+   ### 5.1. Zaburzenia emocjonalne i psychiczne
+
+   - Depresja i zaburzenia psychiczne
+   - Samotność i izolacja
+   - Doświadczenie myśli natrętnych lub niechcianych
+   - Poczucie braku sensu życia
+   - Poczucie niższości i brak akceptacji siebie
+   - Kryzys tożsamości i samooceny
+   - Zmaganie się z lękiem przed przyszłością
+   - Doświadczenie silnego lęku i obniżenia nastroju
+   - Powrót do autoagresji jako mechanizmu radzenia sobie ze stresem
+   - Zmaganie się z głębokim uczuciem wstrętu i nienawiści
+   - Zmaganie się z nawracającymi trudnościami emocjonalnymi
+   - Poczucie zniechęcenia w praktykach religijnych
+   - Potrzeba profesjonalnej pomocy psychologicznej
+   - Trudności w kontrolowaniu negatywnych emocji wobec innych
+
+   ### 5.2. Emocje w życiu duchowym
+
+   - Zmaganie się z gniewem na Boga
+   - Poczucie niewystarczalności w oczach Boga
+   - Poczucie winy z powodu własnych emocji i zachowań
+   - Zmaganie się z gniewem w codziennym życiu
+   - Świadomość wpływu hormonów na emocje i skrupuły
+   - Doświadczenie niepokoju podczas praktyk religijnych
+
+   ## 6. Powołanie i sens życia
+
+   ### 6.1. Poszukiwanie powołania
+
+   - Pytania o powołanie życiowe
+   - Wątpliwości co do powołania kapłańskiego lub zakonnego
+   - Rozważania nad powołaniem i ideałem mężczyzny
+   - Refleksja nad powołaniem i życiem w pojedynkę
+   - Poczucie braku celu w życiu duchowym
+   - Poszukiwanie sensu życia i celu
+   - Trudności w podejmowaniu decyzji
+   - Kryzys tożsamości i samooceny
+
+   ### 6.2. Konflikt powołania z życiem osobistym
+
+   - Problemy w życiu zakonnym lub duchownym
+   - Trudności w akceptacji siebie i swojego ciała
+   - Zmaganie się z orientacją seksualną
+   - Wątpliwości dotyczące nauczania Kościoła o homoseksualizmie
+
+   ## 7. Cierpienie i choroba
+
+   ### 7.1. Choroba i cierpienie
+
+   - Choroba i cierpienie fizyczne
+   - Żałoba po stracie bliskiej osoby
+   - Zmaganie się z chorobą bliskiej osoby
+   - Pytania o sens cierpienia i zła na świecie
+   - Trudności w akceptacji cierpienia niewinnych
+   - Wątpliwości dotyczące sensu cierpienia Chrystusa
+
+   ### 7.2. Pomoc i wsparcie
+
+   - Potrzeba profesjonalnej pomocy psychologicznej
+   - Wątpliwości co do skuteczności spowiedzi w rozwiązaniu problemów emocjonalnych
+   - Konflikt między radami psychologa a nauką Kościoła
+   - Poszukiwanie pomocy duchowej i psychologicznej
+   - Rady dotyczące radzenia sobie z myślami natrętnymi
+
+   ## 8. Moralność i etyka
+
+   ### 8.1. Dylematy moralne
+
+   - Wątpliwości dotyczące nauczania Kościoła o seksualności
+   - Problemy w małżeństwie związane z antykoncepcją
+   - Wątpliwości dotyczące nauczania Kościoła o homoseksualizmie
+   - Pytania o eutanazję i aborcję
+   - Pytania o etykę w biznesie i pracy zawodowej
+   - Pytania o etyczność korzystania z zasobów pracodawcy dla celów prywatnych
+   - Wątpliwości co do potrzeby posłuszeństwa wobec przełożonych
+   - Wątpliwości dotyczące pychy i próżności
+   - Problemy z ocenianiem innych i osądzaniem
+   - Poczucie odpowiedzialności za zbawienie innych
+
+   ### 8.2. Grzech i przebaczenie innym
+
+   - Trudności w przebaczeniu innym
+   - Wątpliwości dotyczące przebaczenia i pojednania z innymi
+   - Trudności w akceptacji własnych ograniczeń
+   - Zmaganie się z pokusą zemsty
+   - Trudności w relacji z toksycznym przyjacielem
+
+   ## 9. Życie społeczne i zawodowe
+
+   ### 9.1. Praca i kariera
+
+   - Problemy finansowe i materialne
+   - Konflikty w miejscu pracy
+   - Poczucie niespełnienia zawodowego
+   - Problemy z uzależnieniem od pracy (pracoholizm)
+   - Poczucie niesprawiedliwości społecznej
+   - Poczucie niesprawiedliwości w relacjach międzyludzkich
+   - Trudności w podejmowaniu decyzji
+
+   ### 9.2. Społeczeństwo i kultura
+
+   - Trudności w akceptacji odmienności kulturowej
+   - Poczucie zagubienia w szybko zmieniającym się świecie
+   - Poczucie odrzucenia przez społeczeństwo
+   - Konflikty z innymi wiernymi
+
+   ## 10. Specyficzne doświadczenia duchowe
+
+   ### 10.1. Doświadczenia mistyczne i duchowe
+
+   - Doświadczenia mistyczne i ich interpretacja
+   - Doświadczenia duchowe związane z odczuwaniem obecności istot duchowych
+   - Opis walki duchowej poprzez modlitwę i wolną wolę
+   - Doświadczenie lęku i odczuwanie zła podczas modlitwy
+   - Zauważenie nasilenia tych doświadczeń podczas życia w łasce uświęcającej
+   - Doświadczenie osób dręczonych duchowo
+
+   ### 10.2. Okultyzm i zagrożenia duchowe
+
+   - Zainteresowanie okultyzmem i jego wpływ na życie
+   - Ostrzeżenie przed praktykami okultystycznymi i ich konsekwencjami
+   - Świadectwo uwolnienia od zniewoleń duchowych związanych z okultyzmem
+
+   ## 11. Liturgia i praktyki religijne
+
+   ### 11.1. Sakramenty i liturgia
+
+   - Wątpliwości co do ważności sakramentu spowiedzi
+   - Pytania o znaczenie sakramentu bierzmowania
+   - Krytyka zmian w liturgii związanych z epidemią
+   - Frustracja z powodu wprowadzonych środków ostrożności w Kościele
+   - Trudności w zrozumieniu symboli religijnych
+   - Pytania o symbolikę i znaczenie Eucharystii
+
+   ### 11.2. Post i wyrzeczenia
+
+   - Trudności w praktykowaniu postu i wyrzeczeń
+   - Wątpliwości co do sensu praktyk religijnych
+
+   ## 12. Edukacja i wychowanie
+
+   ### 12.1. Wychowanie religijne
+
+   - Problemy wychowawcze związane z wiarą dziecka
+   - Poczucie winy z powodu zaniedbań w religijnym wychowaniu
+   - Pytanie o możliwość przystąpienia dziecka do Komunii bez wiary
+   - Dyskusja o obowiązku posyłania dzieci na lekcje religii
+
+   ### 12.2. Edukacja i nauczanie
+
+   - Problemy z komunikacją z młodzieżą na temat wiary
+   - Znaczenie pasji i entuzjazmu w nauczaniu
+
+   ## 13. Inne tematy
+
+   ### 13.1. Problemy społeczne
+
+   - Krytyka zmian w liturgii związanych z epidemią
+   - Frustracja z powodu wprowadzonych środków ostrożności w Kościele
+
+   ### 13.2. Tematy niezwiązane bezpośrednio z wątkiem
+
+   - Lekkie rozmowy na tematy niezwiązane z wątkiem
+   - Wyrażenie poparcia dla wypowiedzi innego użytkownika
+   - Krytyka wypowiedzi innego użytkownika
+
+2. **Categorization Guidelines:**
+
+   - **Assign the Post to Appropriate Categories:**
+     - Use the three-level hierarchy.
+     - **Always use all three levels of categorization**, even if you need to create a suitable sub-subcategory that accurately describes the post's topic.
+     - Ensure that the new sub-subcategory logically fits within the existing hierarchy.
+     - **Number the sub-subcategories** consistently (e.g., "1.1.1", "1.2.1").
+
+   - **Multiple Categories:**
+     - If the post fits into multiple categories, include all applicable categories.
+     - Each categorization path should be complete with all three levels.
+
+   - **Handling Uncertainty:**
+     - If you are unsure about the appropriate category, classify the post under **"Inne"** (Other).
+     - However, prefer using the predefined categories whenever possible.
+
+3. **Output Format:**
+
+   - Provide the output in a **nested JSON** format reflecting the hierarchy.
+   - Use **Polish** for all category names.
+   - **Do not use labels** like "Kategoria główna" or "Podkategoria"; instead, use the category names as keys.
+   - The last subcategory should be the value.
+   - **Number the categories, subcategories, and sub-subcategories** consistently.
+   - Structure your output as follows:
+
+     ```json
+     {
+       "Numer Nazwa Kategorii Głównej": {
+         "Numer Nazwa Podkategorii": {
+           "Numer Podpodkategorii Nazwa Podpodkategorii": "Opis lub wartość"
+         }
+       },
+       "Inny Numer i Nazwa Kategorii Głównej": {
+         "Numer i Nazwa Podkategorii": {
+           "Numer Podpodkategorii Nazwa Podpodkategorii": "Opis lub wartość",
+           "Numer Podpodkategorii Nazwa Podpodkategorii": "Opis lub wartość"
+         }
+       }
+     }
+     ```
+
+4. **Processing Posts:**
+
+   - Response must be in JSON format followed by the structure above
+   - Number the sub-subcategories consistently
+   - Don't add any other text to the response, no additional comments or explanations
+   - Read the post carefully and identify its main themes.
+   - Match these themes to the most appropriate categories.
+   - Always use all three levels of categorization, even if you need to create a suitable sub-subcategory.
+   - Use the category names as keys in the JSON, and the last subcategory should be the value.
+   - Number the sub-subcategories consistently.
+   - If assigning multiple categories, include each within the same main category as separate subcategory paths.
+
+"""
