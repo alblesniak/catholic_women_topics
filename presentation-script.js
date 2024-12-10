@@ -961,26 +961,26 @@ document.addEventListener('DOMContentLoaded', async () => {
       const container = document.createElement('div');
       container.style.display = 'flex';
       container.style.flexDirection = 'column';
-      container.style.gap = '80px';
+      container.style.gap = '40px'; // Zmniejszenie gap
       container.style.height = '100%';
       container.style.justifyContent = 'flex-start';
-      container.style.padding = '0';
-      container.style.marginTop = '-40px';
+      container.style.padding = '20px'; // Dodanie paddingu
+      container.style.marginTop = '0'; // Usunięcie negatywnego marginTop
 
       // Dwa rzędy po 3 obrazy
       for (let row = 0; row < 2; row++) {
         const rowDiv = document.createElement('div');
         rowDiv.style.display = 'flex';
-        rowDiv.style.justifyContent = 'center';
+        rowDiv.style.justifyContent = 'space-around'; // Zmiana na space-around
         rowDiv.style.alignItems = 'center';
-        rowDiv.style.gap = '80px';
+        rowDiv.style.gap = '40px'; // Dostosowanie gap
 
         for (let j = 0; j < 3; j++) {
           const imgIndex = i + row * 3 + j;
           if (imgIndex < 31) {
             const img = document.createElement('img');
             img.src = `visualizations/women_wordclouds/topic_${imgIndex}_wordcloud.png`;
-            img.style.maxWidth = '32%';
+            img.style.maxWidth = '30%'; // Dostosowanie szerokości
             img.style.maxHeight = '38vh';
             img.style.objectFit = 'contain';
             rowDiv.appendChild(img);
@@ -1028,32 +1028,32 @@ document.addEventListener('DOMContentLoaded', async () => {
     menSecondSection.appendChild(menSecondSectionDiv);
     menMainSection.appendChild(menSecondSection);
 
-    //Kolejne slajdy dla mężczyzn (po 6 obrazów)
+    // Kolejne slajdy dla mężczyzn (po 6 obrazów)
     for (let i = 5; i < 34; i += 6) {
       const verticalSection = document.createElement('section');
       const container = document.createElement('div');
       container.style.display = 'flex';
       container.style.flexDirection = 'column';
-      container.style.gap = '80px';
+      container.style.gap = '40px'; // Zmniejszenie gap
       container.style.height = '100%';
       container.style.justifyContent = 'flex-start';
-      container.style.padding = '0';
-      container.style.marginTop = '-40px';
+      container.style.padding = '20px'; // Dodanie paddingu
+      container.style.marginTop = '0'; // Usunięcie negatywnego marginTop
 
       // Dwa rzędy po 3 obrazy
       for (let row = 0; row < 2; row++) {
         const rowDiv = document.createElement('div');
         rowDiv.style.display = 'flex';
-        rowDiv.style.justifyContent = 'center';
+        rowDiv.style.justifyContent = 'space-around'; // Zmiana na space-around
         rowDiv.style.alignItems = 'center';
-        rowDiv.style.gap = '80px';
+        rowDiv.style.gap = '40px'; // Zmniejszenie gap
 
         for (let j = 0; j < 3; j++) {
           const imgIndex = i + row * 3 + j;
           if (imgIndex < 34) {
             const img = document.createElement('img');
             img.src = `visualizations/men_wordclouds/topic_${imgIndex}_wordcloud.png`;
-            img.style.maxWidth = '32%';
+            img.style.maxWidth = '30%'; // Dostosowanie szerokości
             img.style.maxHeight = '38vh';
             img.style.objectFit = 'contain';
             rowDiv.appendChild(img);
